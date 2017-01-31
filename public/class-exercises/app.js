@@ -7,11 +7,33 @@ angular
 
 
 function TodoController($scope) {
-    $scope.todos = [
-        {'title':'title 1', 'note':'note1'},
-        {'title':'title 2', 'note':'note2'}
-    ];
+    $scope.todos = [];
+
+    $scope.createPost = createPost;
+    $scope.deletePost = deletePost;
+    $scope.selectPost = selectPost;
+
+    function selectPost(post)
+    {
+        var newPost = {'title':post.title, 'body':post.note};
+        $scope.post.title = newPost.title;
+        $scope.post.body = newPost.body;
+        console.log(newPost);
+    }
+
+    function createPost(post){
+        var blogPost = {'title': post.title, 'body': post.body};
+        $scope.todos.push({'title': blogPost.title, 'note': blogPost.body});
+    }
+
+    function deletePost(post)
+    {
+        var postToBeDeleted = $scope.todos.indexOf(post);
+        $scope.todos.splice(postToBeDeleted, 1)
+    }
 }
+
+
 
 
 

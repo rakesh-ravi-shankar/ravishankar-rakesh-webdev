@@ -1,24 +1,26 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <title>page-edit</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="row container-fluid">
-        <div class="col-sm-4 hidden-xs">
+        <div class="col-sm-1 col-xs-1">
             <div class="navbar-text pull-left no-left-margin">
                 <a href="page-list.html">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
+        </div>
+        <div class="col-sm-3 hidden-xs">
             <div class="navbar-header">
                 <div class="navbar-brand">
-                    Websites
+                    Pages
                 </div>
             </div>
             <div class="navbar-text pull-right">
@@ -27,7 +29,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 col-xs-11">
 
             <div class="navbar-text pull-right no-right-margin">
                 <a href="page-list.html">
@@ -47,39 +49,45 @@
     <div class="col-sm-4 hidden-xs vertical-line">
 
         <ul class="list-group">
-            <li class="list-group-item">Home
-                <span class="glyphicon glyphicon-cog pull-right"></span>
+            <li class="list-group-item">
+                <a href="widget-list.html">Home</a>
+                <a href="page-edit.html">
+                    <span class="glyphicon glyphicon-cog pull-right"></span>
+                </a>
             </li>
-            <li class="list-group-item">Blog
-                <span class="glyphicon glyphicon-cog pull-right"></span>
+            <li class="list-group-item">
+                <a href="widget-list.html">Blog</a>
+                <a href="page-edit.html">
+                    <span class="glyphicon glyphicon-cog pull-right"></span>
+                </a>
             </li>
-            <li class="list-group-item">Contact
-                <span class="glyphicon glyphicon-cog pull-right"></span>
+            <li class="list-group-item">
+                <a href="widget-list.html">Contact</a>
+                <a href="page-edit.html">
+                    <span class="glyphicon glyphicon-cog pull-right"></span>
+                </a>
             </li>
         </ul>
     </div>
 
     <div class="col-sm-8">
-        <h2>Name</h2>
-        <input class="form-control" type="text" placeholder="Page Name">
-        <h2>Title</h2>
-        <textarea class="form-control" placeholder="Page Title"></textarea>
-        <a class="btn btn-danger btn-block btn-lg" href="#">Delete</a>
+        <label for="name">Name</label>
+        <input class="form-control" id="name" type="text" placeholder="Page Name">
+        <label for="title">Title</label>
+        <textarea class="form-control" id="title" placeholder="Page Title" rows="3"></textarea>
+        <a class="btn btn-danger btn-block btn-lg" href="page-list.html">Delete</a>
     </div>
 </div>
 
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="row container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
 
-        <div class="col-xs-10 col-sm-10"></div>
-        <div class="col-xs-2 col-sm-2">
             <div class="navbar-text pull-right">
                 <a href="profile.html">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>
-        </div>
     </div>
 </nav>
 </body>

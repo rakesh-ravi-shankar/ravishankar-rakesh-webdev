@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <title>website-list</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-
-<body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 col-xs-6">
                     <div class="navbar-text pull-left no-left-margin">
-                        <a href="profile.html">
+                        <a href="../../user/templates/profile.view.client.html">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
                     </div>
@@ -28,7 +17,7 @@
                 <div class="col-sm-8 col-xs-6">
 
                     <div class="navbar-text pull-right no-right-margin">
-                        <a href="website-new.html">
+                        <a href="#/user/{{model.uid}}/website/new">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </div>
@@ -39,26 +28,34 @@
     </nav>
 
     <div class="container">
+
         <ul class="list-group">
-            <li class="list-group-item">
-                <a href="page-list.html">Gizmodo</a>
-                <a href="website-edit.html">
+
+            <li ng-repeat="website in model.websites" class="list-group-item">
+                <a href="../../page/page-list.view.client.html">{{website.name}}</a>
+                <a href="#/user/{{model.uid}}/website/{{website._id}}">
                     <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
-            <li class="list-group-item">
-                <a href="page-list.html">The Verge</a>
-                <a href="website-edit.html">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="page-list.html">Blogger</a>
-                <a href="website-edit.html">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-            </li>
+
+
+
+
+            <!--<li class="list-group-item">-->
+                <!--<a href="../../page/page-list.view.client.html">The Verge</a>-->
+                <!--<a href="website-edit.view.client.html">-->
+                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="../../page/page-list.view.client.html">Blogger</a>-->
+                <!--<a href="website-edit.view.client.html">-->
+                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+            <!--</li>-->
+
         </ul>
+
     </div>
 
 
@@ -66,12 +63,10 @@
         <div class="container">
 
                 <div class="navbar-text pull-right">
-                    <a href="profile.html">
+                    <a href="#/profile/{{model.uid}}">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </div>
 
         </div>
     </nav>
-</body>
-</html>

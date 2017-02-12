@@ -66,7 +66,7 @@
         </form>
 
         <a ng-click="model.update(model.user)"
-           class="btn btn-primary btn-block">Update</a>
+           class="btn btn-success btn-block">Update</a>
 
         <a class="btn btn-primary btn-block"
            href="#/user/{{model.user._id}}/website">Websites</a>
@@ -78,7 +78,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="container">
         <div class="navbar-text pull-right no-right-margin">
-            <a href="#">
+            <a href="#/profile/{{model.user._id}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>

@@ -14,7 +14,9 @@
                 controllerAs: 'model'
             })
             .when("/register", {
-                templateUrl: 'views/user/templates/register.view.client.html'
+                templateUrl: 'views/user/templates/register.view.client.html',
+                controller: 'registerController',
+                controllerAs: 'model'
             })
             .when("/profile/:uid", {
                 templateUrl: 'views/user/templates/profile.view.client.html',
@@ -36,5 +38,21 @@
                 controller: 'websiteEditController',
                 controllerAs: 'model'
             })
+            .when("/user/:uid/website/:wid/page", {
+                templateUrl: 'views/page/templates/page-list.view.client.html',
+                controller: 'pageListController',
+                controllerAs: 'model'
+            })
+            .when("/user/:uid/website/:wid/page/new", {
+                templateUrl: 'views/page/templates/page-new.view.client.html',
+                controller: 'pageNewController',
+                controllerAs: 'model'
+            })
+            .when("/user/:uid/website/:wid/page/:pid", {
+                templateUrl: 'views/page/templates/page-edit.view.client.html',
+                controller: 'pageEditController',
+                controllerAs: 'model'
+            })
+
     }
 })();

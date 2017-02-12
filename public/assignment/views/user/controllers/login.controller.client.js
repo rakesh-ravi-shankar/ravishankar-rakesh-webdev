@@ -11,6 +11,10 @@
         vm.login = login;
 
         function login(user){
+            if(typeof user === "undefined"){
+                vm.error = "Undefined Entry!";
+                return;
+            }
             var loginUser = UserService.findUserByCredentials(user.username, user.password);
             if (loginUser != null)
             {
@@ -19,7 +23,7 @@
             }
             else
             {
-                vm.error = "Unknown Error!";
+                vm.error = "Login Failed!";
             }
         }
     }

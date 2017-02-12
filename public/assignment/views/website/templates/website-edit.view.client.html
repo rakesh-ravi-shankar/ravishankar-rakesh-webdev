@@ -3,7 +3,7 @@
     <div class="row container-fluid">
         <div class="col-sm-1 col-xs-1">
             <div class="navbar-text pull-left no-left-margin">
-                <a href="website-list.view.client.html">
+                <a href="#/user/{{model.uid}}/website">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
@@ -23,7 +23,7 @@
         <div class="col-sm-8 col-xs-11">
 
             <div class="navbar-text pull-right no-right-margin">
-                <a href="website-list.view.client.html">
+                <a ng-click="model.updateWebsite()">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -43,31 +43,11 @@
         <ul class="list-group">
 
             <li ng-repeat="website in model.websites" class="list-group-item">
-                <a href="../../page/page-list.view.client.html">{{website.name}}</a>
+                <a href="#/user/{{model.uid}}/website/{{website._id}}/page">{{website.name}}</a>
                 <a href="#/user/{{model.uid}}/website/{{website._id}}">
                     <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
-
-            <!--<li class="list-group-item">-->
-                <!--<a href="../../page/page-list.view.client.html">Gizmodo</a>-->
-                <!--<a href="website-edit.view.client.html">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="../../page/page-list.view.client.html">The Verge</a>-->
-                <!--<a href="website-edit.view.client.html">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="../../page/page-list.view.client.html">Blogger</a>-->
-                <!--<a href="website-edit.view.client.html">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-            <!--</li>-->
-
 
         </ul>
 
@@ -88,7 +68,7 @@
 
 
             <div class="navbar-text pull-right">
-                <a href="../../user/templates/profile.view.client.html">
+                <a href="#/profile/{{model.uid}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>

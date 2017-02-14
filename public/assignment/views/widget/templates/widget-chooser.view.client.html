@@ -17,13 +17,16 @@
 <div class="container">
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="widget-heading.view.client.html">Header</a>
+            <a ng-click="model.createWidget('HEADER')">Header</a>
         </li>
         <li class="list-group-item">
-            <a href="widget-image.view.client.html">Image</a>
+            <a ng-click="model.createWidget('IMAGE')">Image</a>
         </li>
         <li class="list-group-item">
-            <a href="widget-youtube.view.client.html">Youtube</a>
+            <a ng-click="model.createWidget('YOUTUBE')">Youtube</a>
+        </li>
+        <li class="list-group-item">
+            <a ng-click="model.createWidget('HTML')">HTML</a>
         </li>
     </ul>
 </div>
@@ -33,7 +36,7 @@
     <div class="container">
 
             <div class="navbar-text pull-right">
-                <a href="../user/templates/profile.view.client.html">
+                <a href="#/profile/{{model.uid}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>

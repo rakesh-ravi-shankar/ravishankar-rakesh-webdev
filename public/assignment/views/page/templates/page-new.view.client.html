@@ -42,7 +42,7 @@
 
         <ul class="list-group">
             <li ng-repeat="page in model.pages" class="list-group-item">
-                <a href="../../widget/widget-list.view.client.html">{{page.name}}</a>
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}/widget">{{page.name}}</a>
                 <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}">
                     <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>

@@ -27,7 +27,6 @@
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
 
-        <!--<ng-include src="model.getWidgetTemplateUrl(widget.widgetType)"></ng-include>-->
 
         <div ng-switch="widget.widgetType">
             <div ng-switch-when="HEADER" class="widget">
@@ -38,7 +37,8 @@
                 <ng-include src="'views/widget/templates/widget-IMAGE.view.client.html'"></ng-include>
             </div>
 
-            <div ng-switch-when="HTML" ng-bind-html="model.getTrustedHTML(widget.text)" class="widget">
+            <div ng-switch-when="HTML" class="widget">
+                <ng-include src="'views/widget/templates/widget-HTML.view.client.html'"></ng-include>
             </div>
 
             <div ng-switch-when="YOUTUBE" class="widget">

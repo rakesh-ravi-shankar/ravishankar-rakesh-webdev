@@ -20,7 +20,6 @@
 
         function createNewPage(newPage) {
             PageService.createPage(vm.wid, newPage);
-            console.log("created page");
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
         }
     }

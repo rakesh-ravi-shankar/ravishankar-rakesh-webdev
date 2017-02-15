@@ -8,6 +8,7 @@
 
     function widgetListController(WidgetService, $routeParams, $sce) {
         var vm = this;
+
         init();
 
         function init() {

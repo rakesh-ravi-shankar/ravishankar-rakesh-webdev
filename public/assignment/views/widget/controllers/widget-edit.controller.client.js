@@ -9,6 +9,8 @@
     function widgetEditController(WidgetService, $routeParams, $location) {
         var vm = this;
 
+        init();
+
         function init() {
             vm.uid = $routeParams.uid;
             vm.pid = $routeParams.pid;

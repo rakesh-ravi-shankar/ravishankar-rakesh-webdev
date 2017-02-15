@@ -14,7 +14,6 @@
             vm.login = login;
         }
 
-
         function login(user) {
             if (typeof user === "undefined") {
                 vm.error = "Undefined Entry!";

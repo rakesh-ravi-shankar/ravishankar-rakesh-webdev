@@ -8,6 +8,9 @@
 
     function widgetListController(WidgetService, $routeParams, $sce) {
         var vm = this;
+        vm.getEmbededUrl = getEmbededUrl;
+        vm.getTrustedHTML = getTrustedHTML;
+        vm.getWidgetTemplateUrl = getWidgetTemplateUrl;
 
         init();
 
@@ -16,9 +19,6 @@
             vm.pid = $routeParams.pid;
             vm.wid = $routeParams.wid;
             vm.allWidgets = WidgetService.findWidgetsByPageId(vm.pid);
-            vm.getEmbededUrl = getEmbededUrl;
-            vm.getTrustedHTML = getTrustedHTML;
-            vm.getWidgetTemplateUrl = getWidgetTemplateUrl;
         }
 
 

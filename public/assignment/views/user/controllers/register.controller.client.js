@@ -8,11 +8,8 @@
 
     function registerController(UserService, $location) {
         var vm = this;
-        init();
+        vm.createUser = createUser;
 
-        function init() {
-            vm.createUser = createUser;
-        }
 
         function createUser(user) {
             if (typeof user === "undefined") {

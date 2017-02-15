@@ -8,6 +8,7 @@
 
     function pageListController(PageService, $routeParams) {
         var vm = this;
+
         init();
 
         function init() {

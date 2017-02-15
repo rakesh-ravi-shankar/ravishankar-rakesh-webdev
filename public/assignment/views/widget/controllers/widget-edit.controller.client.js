@@ -8,6 +8,8 @@
 
     function widgetEditController(WidgetService, $routeParams, $location) {
         var vm = this;
+        vm.updateWidget = updateWidget;
+        vm.deleteWidget = deleteWidget;
 
         init();
 
@@ -16,8 +18,6 @@
             vm.pid = $routeParams.pid;
             vm.wid = $routeParams.wid;
             vm.wgid = $routeParams.wgid;
-            vm.updateWidget = updateWidget;
-            vm.deleteWidget = deleteWidget;
             vm.currentWidget = WidgetService.findWidgetById(vm.wgid);
         }
 

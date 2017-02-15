@@ -8,6 +8,7 @@
 
     function widgetChooserController(WidgetService, $routeParams, $location) {
         var vm = this;
+        vm.createWidget = createWidget;
 
         init();
 
@@ -15,7 +16,7 @@
             vm.uid = $routeParams.uid;
             vm.pid = $routeParams.pid;
             vm.wid = $routeParams.wid;
-            vm.createWidget = createWidget;
+
         }
 
         function createWidget(widgetType) {

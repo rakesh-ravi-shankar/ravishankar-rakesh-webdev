@@ -9,6 +9,9 @@
 
     function pageEditController(PageService, $routeParams, $location) {
         var vm = this;
+        vm.updatePage = updatePage;
+        vm.deletePage = deletePage;
+
         init();
 
         function init() {
@@ -17,8 +20,7 @@
             vm.pid = $routeParams.pid;
             vm.pages = PageService.findPageByWebsiteId(vm.wid);
             vm.currentPage = PageService.findPageById(vm.pid);
-            vm.updatePage = updatePage;
-            vm.deletePage = deletePage;
+
         }
 
         function updatePage() {

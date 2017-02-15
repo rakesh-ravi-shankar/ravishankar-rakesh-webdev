@@ -8,6 +8,7 @@
 
     function loginController(UserService, $location) {
         var vm = this;
+
         init();
 
         function init() {

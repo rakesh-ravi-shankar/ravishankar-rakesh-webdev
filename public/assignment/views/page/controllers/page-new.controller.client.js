@@ -9,13 +9,15 @@
 
     function pageNewController(PageService, $routeParams, $location) {
         var vm = this;
+        vm.createNewPage = createNewPage;
+
         init();
 
         function init() {
             vm.uid = $routeParams.uid;
             vm.wid = $routeParams.wid;
             vm.pages = PageService.findPageByWebsiteId(vm.wid);
-            vm.createNewPage = createNewPage;
+
         }
 
         function createNewPage(newPage) {

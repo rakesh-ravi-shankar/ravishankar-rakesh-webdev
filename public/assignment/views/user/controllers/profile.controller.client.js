@@ -10,13 +10,14 @@
         var vm = this;
         var userId = $routeParams['uid'];
         var user = UserService.findUserById(userId);
-        init();
+        vm.update = updateUser;
+        vm.deleteUser = deleteUser;
 
+        init();
 
         function init() {
             vm.user = user;
-            vm.update = updateUser;
-            vm.deleteUser = deleteUser;
+
         }
 
         function updateUser() {

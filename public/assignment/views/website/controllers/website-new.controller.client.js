@@ -8,12 +8,13 @@
 
     function websiteNewController(WebsiteService, $routeParams, $location) {
         var vm = this;
+        vm.createWebsite = createWebsite;
+
         init();
 
         function init() {
             vm.uid = $routeParams.uid;
             vm.websites = WebsiteService.findAllWebsitesForUser(vm.uid);
-            vm.createWebsite = createWebsite;
         }
 
         function createWebsite(website) {

@@ -1,27 +1,37 @@
 /**
  * Created by Rakesh on 2/10/17.
  */
-(function(){
+(function () {
     angular
         .module("WebApp")
         .controller("profileController", profileController);
 
-    function profileController(UserService, $routeParams){
+    function profileController(UserService, $routeParams, $location) {
         var vm = this;
         var userId = $routeParams['uid'];
         var user = UserService.findUserById(userId);
-        vm.user = user;
-        vm.update = updateUser;
+        init();
 
 
-        function updateUser(newUser){
-            var user = UserService.updateUser(userId, newUser);
-            if(user == null){
+        function init() {
+            vm.user = user;
+            vm.update = updateUser;
+            vm.deleteUser = deleteUser;
+        }
+
+        function updateUser() {
+            var user = UserService.updateUser(userId, vm.user);
+            if (user == null) {
                 vm.error = "Cannot update user";
             }
-            else{
+            else {
                 vm.message = "User updated successfully";
             }
+        }
+
+        function deleteUser() {
+            UserService.deleteUser(userId);
+            $location.url("/login");
         }
     }
 })();

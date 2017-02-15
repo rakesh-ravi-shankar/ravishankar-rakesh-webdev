@@ -3,7 +3,7 @@
 
         <div class="navbar-text pull-left no-left-margin">
             <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget">
-            <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
 
@@ -15,7 +15,7 @@
 
         <div class="navbar-header">
             <div class="navbar-brand">
-            Widget Edit
+                Widget Edit
             </div>
         </div>
 
@@ -27,61 +27,22 @@
 
     <div ng-switch="model.currentWidget.widgetType">
         <div ng-switch-when="HEADER">
-            <h1>Edit Header Element</h1>
-            <label for="name_header">Name</label>
-            <input ng-model="model.currentWidget.name" class="form-control" id="name_header" type="text" placeholder="name">
-            <label for="text_header">Text</label>
-            <input ng-model="model.currentWidget.text" class="form-control" id="text_header" type="text" placeholder="text">
-            <label for="size_header">Size</label>
-            <!--<input ng-model="model.currentWidget.size" class="form-control" id="size_header" type="number" placeholder="size">-->
-            <select ng-model="model.currentWidget.size" class="form-control" id="size_header">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-            </select>
-            <a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>
+            <ng-include src="'views/widget/templates/editors/widget-HEADER-edit.view.client.html'"></ng-include>
         </div>
+
         <div ng-switch-when="IMAGE">
-            <h1>Edit Image Element</h1>
-            <label for="name_image">Name</label>
-            <input class="form-control" id="name_image" type="text" placeholder="name">
-            <label for="text_image">Text</label>
-            <input class="form-control" id="text_image" type="text" placeholder="text">
-            <label for="url_image">URL</label>
-            <input ng-model="model.currentWidget.url" class="form-control" id="url_image" type="url" placeholder="url">
-            <label for="size_image">Width</label>
-            <input ng-model="model.currentWidget.width" class="form-control" id="size_image" type="text" placeholder="width">
-            <label for="upload_image">Upload</label>
-            <input class="form-control" id="upload_image" type="file" placeholder="width">
-            <a class="btn btn-primary btn-block btn-lg" href="#">Upload Image</a>
-            <a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>
+            <ng-include src="'views/widget/templates/editors/widget-IMAGE-edit.view.client.html'"></ng-include>
         </div>
+
         <div ng-switch-when="YOUTUBE">
-            <h1>Edit Youtube Element</h1>
-            <label for="name_youtube">Name</label>
-            <input class="form-control" id="name_youtube" type="text" placeholder="name">
-            <label for="text_youtube">Text</label>
-            <input class="form-control" id="text_youtube" type="text" placeholder="text">
-            <label for="url_youtube">URL</label>
-            <input ng-model="model.currentWidget.url" class="form-control" id="url_youtube" type="url" placeholder="url">
-            <label for="size_youtube">Width</label>
-            <input ng-model="model.currentWidget.width" class="form-control" id="size_youtube" type="text" placeholder="width">
-            <a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>
+            <ng-include src="'views/widget/templates/editors/widget-YOUTUBE-edit.view.client.html'"></ng-include>
         </div>
+
         <div ng-switch-when="HTML">
-            <h1>Edit HTML Element</h1>
-            <label for="name_html">Text</label>
-            <input ng-model="model.currentWidget.text" class="form-control" id="name_html" type="text" placeholder="text">
-            <a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>
+            <ng-include src="'views/widget/templates/editors/widget-HTML-edit.view.client.html'"></ng-include>
         </div>
+
     </div>
-
-
-
-
 
 
 </div>
@@ -91,8 +52,8 @@
     <div class="container">
 
         <div class="navbar-text pull-right">
-            <a href="#/profile/{{model.uid}}">
-            <span class="glyphicon glyphicon-user"></span>
+            <a href="#/user/{{model.uid}}">
+                <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
     </div>

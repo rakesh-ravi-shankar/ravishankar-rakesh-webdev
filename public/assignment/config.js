@@ -1,7 +1,7 @@
 /**
  * Created by Rakesh on 2/10/17.
  */
-(function(){
+(function () {
     angular
         .module("WebApp")
         .config(configuration);
@@ -13,12 +13,22 @@
                 controller: 'loginController',
                 controllerAs: 'model'
             })
+            .when("/", {
+                templateUrl: 'views/user/templates/login.view.client.html',
+                controller: 'loginController',
+                controllerAs: 'model'
+            })
+            .when("default", {
+                templateUrl: 'views/user/templates/login.view.client.html',
+                controller: 'loginController',
+                controllerAs: 'model'
+            })
             .when("/register", {
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'registerController',
                 controllerAs: 'model'
             })
-            .when("/profile/:uid", {
+            .when("/user/:uid", {
                 templateUrl: 'views/user/templates/profile.view.client.html',
                 controller: 'profileController',
                 controllerAs: 'model'

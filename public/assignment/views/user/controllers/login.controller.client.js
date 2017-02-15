@@ -1,28 +1,31 @@
 /**
  * Created by Rakesh on 2/10/17.
  */
-(function(){
+(function () {
     angular
         .module("WebApp")
         .controller("loginController", loginController);
 
-    function loginController(UserService, $location){
-        var vm  = this;
-        vm.login = login;
+    function loginController(UserService, $location) {
+        var vm = this;
+        init();
 
-        function login(user){
-            if(typeof user === "undefined"){
+        function init() {
+            vm.login = login;
+        }
+
+
+        function login(user) {
+            if (typeof user === "undefined") {
                 vm.error = "Undefined Entry!";
                 return;
             }
             var loginUser = UserService.findUserByCredentials(user.username, user.password);
-            if (loginUser != null)
-            {
-                $location.url('/profile/' + loginUser._id);
+            if (loginUser != null) {
+                $location.url('/user/' + loginUser._id);
 
             }
-            else
-            {
+            else {
                 vm.error = "Login Failed!";
             }
         }

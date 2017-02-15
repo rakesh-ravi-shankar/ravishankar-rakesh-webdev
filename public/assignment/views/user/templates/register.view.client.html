@@ -2,25 +2,51 @@
     <div class="container">
         <h1>Register</h1>
         <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
+
         <label for="username">Username</label>
         <input ng-model="user.username" type="text"
                class="form-control"
                id="username"
                placeholder="username"/>
+
+        <label for="email">Email address</label>
+        <input ng-model = "user.email"
+               type="email"
+               class="form-control"
+               id="email"
+               placeholder="janedoe@husky.neu.edu">
+
+        <label for="first-name">First Name</label>
+        <input ng-model = "user.firstName"
+               type="text"
+               class="form-control"
+               id="first-name"
+               placeholder="Jane">
+
+        <label for="last-name">Last Name</label>
+        <input ng-model = "user.lastName"
+               type="text"
+               class="form-control"
+               id="last-name"
+               placeholder="Doe">
+
         <label for="password">Password</label>
         <input ng-model="user.password"
                type="password"
                class="form-control"
                id="password"
                placeholder="password"/>
+
         <label for="verify-password">Verify Password</label>
         <input ng-model="user.verify_password"
                type="password"
                class="form-control"
                id="verify-password"
                placeholder="verify password"/>
+
         <a class="btn btn-primary btn-block"
            ng-click="model.createUser(user)">Register</a>
+
         <a class="btn btn-danger  btn-block"
            href="#/login">Cancel</a>
     </div>

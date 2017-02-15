@@ -1,21 +1,22 @@
 /**
  * Created by Rakesh on 2/10/17.
  */
-(function(){
+(function () {
     angular
         .module("WebApp")
         .controller("websiteNewController", websiteNewController);
 
     function websiteNewController(WebsiteService, $routeParams, $location) {
         var vm = this;
-        vm.uid = $routeParams.uid;
         init();
-        vm.createWebsite = createWebsite;
 
-        function init(){
+        function init() {
+            vm.uid = $routeParams.uid;
             vm.websites = WebsiteService.findAllWebsitesForUser(vm.uid);
+            vm.createWebsite = createWebsite;
         }
-        function createWebsite(website){
+
+        function createWebsite(website) {
             WebsiteService.createWebsite(vm.uid, website);
             $location.url("/user/" + vm.uid + "/website")
         }

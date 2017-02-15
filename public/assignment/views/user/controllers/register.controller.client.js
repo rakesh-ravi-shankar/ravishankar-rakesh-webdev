@@ -1,39 +1,44 @@
 /**
  * Created by Rakesh on 2/11/17.
  */
-(function(){
+(function () {
     angular
         .module("WebApp")
         .controller("registerController", registerController)
 
-    function registerController(UserService, $location){
+    function registerController(UserService, $location) {
         var vm = this;
-        vm.createUser = createUser;
+        init();
 
-        function createUser(user){
-            if(typeof user === "undefined"){
+        function init() {
+            vm.createUser = createUser;
+        }
+
+        function createUser(user) {
+            if (typeof user === "undefined") {
                 vm.error = "Undefined Entry!";
                 return;
             }
-            if((typeof user.username === "undefined") ||
+            if ((typeof user.username === "undefined") ||
                 (typeof user.password === "undefined") ||
-                (typeof user.verify_password === "undefined")){
+                (typeof user.verify_password === "undefined")) {
                 vm.error = "Undefined Entry!";
                 return;
             }
 
-            if (user.password === user.verify_password){
+            if (UserService.findUserByUsername(user.username)) {
+                vm.error = "Username already exists! Please select a new username."
+                return;
+            }
 
-                // add the fields that were not obtained from the form
+            if (user.password === user.verify_password) {
                 user._id = (new Date()).getTime().toString();
-                user.firstName = user.username;
-                user.lastName = user.username;
                 delete user.verify_password;
 
                 UserService.createUser(user);
-                $location.url("/profile/" + user._id);
+                $location.url("/user/" + user._id);
             }
-            else{
+            else {
                 vm.error = "Password Mismatch!";
             }
         }

@@ -46,3 +46,9 @@ body {
 a:hover {
     text-decoration: none;
 }
+
+.widget {
+    margin-top: 1em;
+    text-align: justify;
+    text-justify: inter-word;
+}

@@ -18,11 +18,6 @@
                 controller: 'loginController',
                 controllerAs: 'model'
             })
-            .when("default", {
-                templateUrl: 'views/user/templates/login.view.client.html',
-                controller: 'loginController',
-                controllerAs: 'model'
-            })
             .when("/register", {
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'registerController',
@@ -76,6 +71,11 @@
             .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
                 templateUrl: 'views/widget/templates/widget-edit.view.client.html',
                 controller: 'widgetEditController',
+                controllerAs: 'model'
+            })
+            .otherwise({
+                templateUrl: 'views/user/templates/login.view.client.html',
+                controller: 'loginController',
                 controllerAs: 'model'
             })
 

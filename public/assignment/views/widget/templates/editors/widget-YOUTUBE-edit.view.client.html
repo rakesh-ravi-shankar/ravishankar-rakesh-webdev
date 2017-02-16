@@ -1,13 +1,15 @@
 <h1>Edit Youtube Element</h1>
 
 <label for="name_youtube">Name</label>
-<input class="form-control"
+<input ng-model="model.currentWidget.name"
+       class="form-control"
        id="name_youtube"
        type="text"
        placeholder="name">
 
 <label for="text_youtube">Text</label>
-<input class="form-control"
+<input ng-model="model.currentWidget.text"
+       class="form-control"
        id="text_youtube"
        type="text"
        placeholder="text">

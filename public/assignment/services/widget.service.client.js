@@ -85,14 +85,18 @@
             for (var index in widgets) {
                 if (widgets[index]._id == wgid) {
                     if (newWidget.widgetType === "HEADER") {
+                        widgets[index].name = newWidget.name;
                         widgets[index].text = newWidget.text;
                         widgets[index].size = newWidget.size;
                     }
                     else if ((newWidget.widgetType === "IMAGE") || (newWidget.widgetType === "YOUTUBE")) {
+                        widgets[index].name = newWidget.name;
+                        widgets[index].text = newWidget.text;
                         widgets[index].url = newWidget.url;
                         widgets[index].width = newWidget.width;
                     }
                     else if (newWidget.widgetType === "HTML") {
+                        widgets[index].name = newWidget.name;
                         widgets[index].text = newWidget.text;
                     }
                     return;

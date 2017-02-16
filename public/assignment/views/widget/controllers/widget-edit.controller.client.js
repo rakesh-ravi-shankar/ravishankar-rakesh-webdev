@@ -18,6 +18,7 @@
             vm.pid = $routeParams.pid;
             vm.wid = $routeParams.wid;
             vm.wgid = $routeParams.wgid;
+            vm.dropdownOptions = [1, 2, 3, 4, 5, 6];
             vm.currentWidget = WidgetService.findWidgetById(vm.wgid);
         }
 
@@ -30,7 +31,6 @@
             WidgetService.deleteWidget(vm.wgid);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
         }
-
 
     }
 })();

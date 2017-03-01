@@ -2,17 +2,21 @@
  * Created by Rakesh on 2/27/17.
  */
 module.exports = function(app) {
+    var multer = require('multer');
+    var upload = multer({ dest: __dirname + '/../../public/uploads' });
+
     app.get("/api/page/:pid/widget", findAllWidgetsForPage);
     app.get("/api/widget/:wgid", findWidgetById);
     app.post("/api/page/:pid/widget", createWidget);
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
     app.put("/page/:pid/widget", sortWidget);
-    app.post("/api/upload", uploadImage);
+    app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 
     var widgets = [
         {"_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "The Verge"},
+        {"_id": "123", "widgetType": "HEADER", "pageId": "432", "size": 2, "text": "The Verge"},
         {"_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
         {
             "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
@@ -127,14 +131,19 @@ module.exports = function(app) {
                 widgetsForGivenPage.push(index);
             }
         }
+        console.log("Page: " + pid)
+
+        console.log(widgetsForGivenPage);
 
        for (var i = index1; i < index2; i++) {
+           console.log("swap " + widgetsForGivenPage[i] + " with " + widgetsForGivenPage[i+1]);
             var temp = widgets[widgetsForGivenPage[i]];
             widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i+1]];
             widgets[widgetsForGivenPage[i+1]] = temp;
         }
 
         for (var i = index1; i > index2; i--) {
+            console.log("swap " + widgetsForGivenPage[i] + " with " + widgetsForGivenPage[i-1]);
             var temp = widgets[widgetsForGivenPage[i]];
             widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
             widgets[widgetsForGivenPage[i-1]] = temp;
@@ -145,5 +154,7 @@ module.exports = function(app) {
 
     function uploadImage(req, res) {
         //upload
+        console.log(req);
+        res.sendStatus(200);
     }
 };

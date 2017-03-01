@@ -14,12 +14,21 @@
 
         function init() {
             vm.uid = $routeParams.uid;
-            vm.websites = WebsiteService.findAllWebsitesForUser(vm.uid);
+
+            WebsiteService
+                .findAllWebsitesForUser(vm.uid)
+                .success(function(websites) {
+                    vm.websites = websites;
+                });
         }
 
         function createWebsite(website) {
-            WebsiteService.createWebsite(vm.uid, website);
-            $location.url("/user/" + vm.uid + "/website")
+            WebsiteService
+                .createWebsite(vm.uid, website)
+                .success(function() {
+                    $location.url("/user/" + vm.uid + "/website");
+                });
+
         }
     }
 })();

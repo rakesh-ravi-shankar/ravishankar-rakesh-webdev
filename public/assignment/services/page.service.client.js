@@ -7,7 +7,7 @@
         .factory("PageService", PageService);
 
 
-    function PageService() {
+    function PageService($http) {
         var pages = [
             {"_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem"},
             {"_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem"},
@@ -25,49 +25,25 @@
         return api;
 
         function findPageByWebsiteId(wid) {
-            var pageList = [];
-            for (var index in pages) {
-                if (pages[index].websiteId === wid) {
-                    pageList.push(pages[index]);
-                }
-            }
-            return pageList;
+            return $http.get("/api/website/" + wid + "/page");
         }
 
         function findPageById(pid) {
-            for (var index in pages) {
-                if (pages[index]._id === pid) {
-                    return angular.copy(pages[index]);
-                }
-            }
-            return null;
+            return $http.get("/api/page/" + pid);
         }
 
         function createPage(wid, page) {
             page._id = (new Date()).getTime().toString();
             page.websiteId = wid;
-            pages.push(page);
+            return $http.post("/api/website/" + wid + "/page", page);
         }
 
         function updatePage(pid, newPage) {
-            for (var index in pages) {
-                if (pages[index]._id === pid) {
-                    pages[index].name = newPage.name;
-                    pages[index].description = newPage.description;
-                    return;
-                }
-            }
+            return $http.put("/api/page/" + pid, newPage);
         }
 
         function deletePage(pid) {
-            for (var index in pages) {
-                if (pages[index]._id === pid) {
-                    pages.splice(index, 1);
-                    return;
-                }
-            }
-
-
+            return $http.delete("/api/page/" + pid);
         }
     }
 })();

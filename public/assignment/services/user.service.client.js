@@ -7,41 +7,7 @@
         .factory('UserService', userService);
 
 
-    function userService() {
-        var users = [
-            {
-                _id: "123",
-                username: "alice",
-                password: "alice",
-                firstName: "Alice",
-                lastName: "Wonder",
-                email: "alice@husky.neu.edu"
-            },
-            {
-                _id: "234",
-                username: "bob",
-                password: "bob",
-                firstName: "Bob",
-                lastName: "Marley",
-                email: "bob@husky.neu.edu"
-            },
-            {
-                _id: "345",
-                username: "charly",
-                password: "charly",
-                firstName: "Charly",
-                lastName: "Garcia",
-                email: "charly@husky.neu.edu"
-            },
-            {
-                _id: "456",
-                username: "jannunzi",
-                password: "jannunzi",
-                firstName: "Jose",
-                lastName: "Annunzi",
-                email: "jannunzi@husky.neu.edu"
-            }
-        ];
+    function userService($http) {
 
         var api = {
             "createUser": createUser,
@@ -55,59 +21,27 @@
         return api;
 
         function findUserById(uid) {
-            for (var index in users) {
-                var user = users[index];
-                if (user._id === uid) {
-                    return angular.copy(user);
-                }
-            }
-            return null;
+            return $http.get("/api/user/" + uid);
         }
 
         function findUserByUsername(username) {
-            for (var index in users) {
-                var user = users[index];
-                if (user.username === username) {
-                    return angular.copy(user);
-                }
-            }
-            return null;
+            return $http.get("/api/user?username=" + username);
         }
 
         function findUserByCredentials(username, password) {
-            for (var index in users) {
-                var user = users[index];
-                if (user.username === username && user.password === password) {
-                    return angular.copy(user);
-                }
-            }
-            return null;
+            return $http.get("/api/user?username=" + username + "&password=" + password);
         }
 
         function createUser(user) {
-            users.push(user);
+            return $http.post("/api/user", user);
         }
 
         function updateUser(uid, newUser) {
-            for (var index in users) {
-                var user = users[index];
-                if (user._id === uid) {
-                    user.username = newUser.username;
-                    user.firstName = newUser.firstName;
-                    user.lastName = newUser.lastName;
-                    user.email = newUser.email;
-                    return angular.copy(user);
-                }
-            }
-            return null;
+            return $http.put("/api/user/" + uid, newUser);
         }
 
         function deleteUser(uid) {
-            for (var index in users) {
-                if (users[index]._id === uid) {
-                    users.splice(index, 1);
-                }
-            }
+            return $http.delete("/api/user/" + uid);
         }
     }
 

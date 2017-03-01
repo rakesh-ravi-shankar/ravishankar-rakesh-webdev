@@ -19,17 +19,27 @@
             vm.wid = $routeParams.wid;
             vm.wgid = $routeParams.wgid;
             vm.dropdownOptions = [1, 2, 3, 4, 5, 6];
-            vm.currentWidget = WidgetService.findWidgetById(vm.wgid);
+            WidgetService
+                .findWidgetById(vm.wgid)
+                .success(function(wg) {
+                    vm.currentWidget = wg;
+                })
         }
 
         function updateWidget() {
-            WidgetService.updateWidget(vm.wgid, vm.currentWidget);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+            WidgetService
+                .updateWidget(vm.wgid, vm.currentWidget)
+                .success(function() {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                });
         }
 
         function deleteWidget() {
-            WidgetService.deleteWidget(vm.wgid);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+            WidgetService
+                .deleteWidget(vm.wgid)
+                .success(function() {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                });
         }
 
     }

@@ -18,19 +18,35 @@
             vm.uid = $routeParams.uid;
             vm.wid = $routeParams.wid;
             vm.pid = $routeParams.pid;
-            vm.pages = PageService.findPageByWebsiteId(vm.wid);
-            vm.currentPage = PageService.findPageById(vm.pid);
+            PageService
+                .findPageByWebsiteId(vm.wid)
+                .success(function(pages) {
+                    vm.pages = pages;
+                });
+            PageService
+                .findPageById(vm.pid)
+                .success(function(page) {
+                    vm.currentPage = page;
+                });
+
 
         }
 
         function updatePage() {
-            PageService.updatePage(vm.pid, vm.currentPage);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+            PageService
+                .updatePage(vm.pid, vm.currentPage)
+                .success(function() {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                });
+
         }
 
         function deletePage() {
-            PageService.deletePage(vm.pid);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+            PageService
+                .deletePage(vm.pid)
+                .success(function() {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                });
         }
     }
 })();

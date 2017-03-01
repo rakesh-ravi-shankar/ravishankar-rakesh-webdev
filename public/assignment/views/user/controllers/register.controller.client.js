@@ -23,21 +23,31 @@
                 return;
             }
 
-            if (UserService.findUserByUsername(user.username)) {
-                vm.error = "Username already exists! Please select a new username."
-                return;
-            }
+            UserService
+                .findUserByUsername(user.username)
+                .success(function(userFound){
+                    vm.error = "Username already exists! Please select a new username.";
+                })
+                .error(function(err){
+                    if (user.password === user.verify_password) {
+                        user._id = (new Date()).getTime().toString();
+                        delete user.verify_password;
 
-            if (user.password === user.verify_password) {
-                user._id = (new Date()).getTime().toString();
-                delete user.verify_password;
+                        UserService
+                            .createUser(user)
+                            .success(function(){
+                                $location.url("/user/" + user._id);
+                            });
 
-                UserService.createUser(user);
-                $location.url("/user/" + user._id);
-            }
-            else {
-                vm.error = "Password Mismatch!";
-            }
+
+                    }
+                    else {
+                        vm.error = "Password Mismatch!";
+                    }
+            });
+
+
+
         }
     }
 })();

@@ -43,8 +43,12 @@
             }
 
 
-            WidgetService.createWidget(vm.pid, newWidget);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + newWidget._id);
+            WidgetService
+                .createWidget(vm.pid, newWidget)
+                .success(function() {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + newWidget._id);
+                });
+
         }
 
     }

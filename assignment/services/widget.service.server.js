@@ -164,19 +164,21 @@ module.exports = function(app) {
         var width = req.body.width;
         var uid = req.body.uid;
         var wid = req.body.wid;
-        var myFile = req.file;
-        var destination = myFile.destination;
 
-        for (var i in widgets) {
-            if (widgets[i]._id === wgid) {
-                widgets[i].width = width;
-                widgets[i].url = req.protocol + '://' +req.get('host') + "/uploads/" + myFile.filename;
-                pid = widgets[i].pageId;
-                console.log(widgets[i]);
-                break;
+        if(req.file){
+            var myFile = req.file;
+            var destination = myFile.destination;
+
+            for (var i in widgets) {
+                if (widgets[i]._id === wgid) {
+                    widgets[i].width = width;
+                    widgets[i].url = req.protocol + '://' +req.get('host') + "/uploads/" + myFile.filename;
+                    pid = widgets[i].pageId;
+                    break;
+                }
             }
         }
-
         res.redirect("/assignment/#/user/" + uid + "/website/" + wid + "/page/" + pid + "/widget/"+ wgid);
+
     }
 };

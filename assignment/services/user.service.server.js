@@ -61,6 +61,7 @@ module.exports = function(app) {
             return user.password === password && user.username === username
         });
         res.send(user);
+        return;
     }
 
     function findUserByUsername(req, res) {
@@ -73,6 +74,7 @@ module.exports = function(app) {
         else {
             res.sendStatus(404).send({message: "User Not Found"});
         }
+        return;
     }
 
     function findUserById(req,res){

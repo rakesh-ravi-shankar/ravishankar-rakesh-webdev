@@ -3,7 +3,17 @@
  */
 module.exports = function(app) {
     var multer = require('multer');
-    var upload = multer({ dest: __dirname + '/../../public/uploads' });
+    var storage = multer.diskStorage({
+       destination: function (req, file, cb) {
+           cb(null, __dirname + "/../../public/uploads")
+       },
+        filename: function (req, file, cb) {
+           var extArray = file.mimetype.split("/");
+           var extension = extArray[extArray.length - 1];
+           cb(null, "widget_image_" + Date.now() + "." + extension)
+        }
+    });
+    var upload = multer({"storage": storage});
 
     app.get("/api/page/:pid/widget", findAllWidgetsForPage);
     app.get("/api/widget/:wgid", findWidgetById);
@@ -73,7 +83,7 @@ module.exports = function(app) {
     function findWidgetById(req, res) {
         var wgid = req.params.wgid;
         var widget = widgets.find(function(wg) {
-            return wg._id === wgid;
+            return wg._id == wgid;
         });
         res.json(widget);
     }
@@ -88,7 +98,7 @@ module.exports = function(app) {
         var wgid = req.params.wgid;
         var newWidget = req.body;
         for (var index in widgets) {
-            if (widgets[index]._id == wgid) {
+            if (widgets[index]._id === wgid) {
                 if (newWidget.widgetType === "HEADER") {
                     widgets[index].name = newWidget.name;
                     widgets[index].text = newWidget.text;
@@ -116,6 +126,7 @@ module.exports = function(app) {
             if (widgets[index]._id === wgid) {
                 widgets.splice(index, 1);
                 res.sendStatus(200);
+                return;
             }
         }
     }
@@ -131,19 +142,14 @@ module.exports = function(app) {
                 widgetsForGivenPage.push(index);
             }
         }
-        console.log("Page: " + pid)
-
-        console.log(widgetsForGivenPage);
 
        for (var i = index1; i < index2; i++) {
-           console.log("swap " + widgetsForGivenPage[i] + " with " + widgetsForGivenPage[i+1]);
             var temp = widgets[widgetsForGivenPage[i]];
             widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i+1]];
             widgets[widgetsForGivenPage[i+1]] = temp;
         }
 
         for (var i = index1; i > index2; i--) {
-            console.log("swap " + widgetsForGivenPage[i] + " with " + widgetsForGivenPage[i-1]);
             var temp = widgets[widgetsForGivenPage[i]];
             widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
             widgets[widgetsForGivenPage[i-1]] = temp;
@@ -153,8 +159,24 @@ module.exports = function(app) {
     }
 
     function uploadImage(req, res) {
-        //upload
-        console.log(req);
-        res.sendStatus(200);
+        var pid = req.body.pid;
+        var wgid = req.body.wgid;
+        var width = req.body.width;
+        var uid = req.body.uid;
+        var wid = req.body.wid;
+        var myFile = req.file;
+        var destination = myFile.destination;
+
+        for (var i in widgets) {
+            if (widgets[i]._id === wgid) {
+                widgets[i].width = width;
+                widgets[i].url = req.protocol + '://' +req.get('host') + "/uploads/" + myFile.filename;
+                pid = widgets[i].pageId;
+                console.log(widgets[i]);
+                break;
+            }
+        }
+
+        res.redirect("/assignment/#/user/" + uid + "/website/" + wid + "/page/" + pid + "/widget/"+ wgid);
     }
 };

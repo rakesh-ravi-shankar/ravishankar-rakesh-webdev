@@ -8,8 +8,6 @@
 
     function wbdvSort(WidgetService, $routeParams) {
 
-
-
         function linkFunction(scope, element, attributes) {
             var index1, index2;
             var pid = $routeParams.pid;

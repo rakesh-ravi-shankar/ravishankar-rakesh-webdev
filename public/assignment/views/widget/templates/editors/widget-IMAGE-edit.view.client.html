@@ -1,6 +1,14 @@
 <h1>Edit Image Element</h1>
 
 <form action="/api/upload"  method="post" enctype="multipart/form-data">
+
+
+    <input  name="wgid" value="{{model.currentWidget._id}}"   style="display: none"/>
+    <input  name="wid" value="{{model.wid}}"   style="display: none"/>
+    <input  name="uid" value="{{model.uid}}"   style="display: none"/>
+    <input  name="pid" value="{{model.pid}}"   style="display: none"/>
+    <input  name="width" value="{{model.currentWidget.width}}"   style="display: none"/>
+
     <label for="name_image">Name</label>
     <input ng-model="model.currentWidget.name"
            class="form-control"

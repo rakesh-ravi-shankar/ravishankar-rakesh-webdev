@@ -27,6 +27,7 @@
         }
 
         function updateWidget() {
+            console.log(vm.currentWidget);
             WidgetService
                 .updateWidget(vm.wgid, vm.currentWidget)
                 .success(function() {

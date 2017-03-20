@@ -1,12 +1,12 @@
-/**
- * Created by Rakesh on 2/27/17.
- */
-module.exports = function(app) {
+module.exports = function(app, userModel) {
+
     app.get("/api/user", findUser);
     app.get("/api/user/:uid", findUserById);
     app.put("/api/user/:uid", updateUser);
     app.delete("/api/user/:uid", deleteUser);
     app.post("/api/user", createUser);
+
+    var userModel = require("../model/user/user.model.server");
 
     var users = [
         {
@@ -115,7 +115,12 @@ module.exports = function(app) {
 
     function createUser(req, res) {
         var user = req.body;
-        users.push(user);
-        res.sendStatus(200);
+        // users.push(user);
+        userModel
+            .createUser(user)
+            .then(function(user) {
+                res.sendStatus(200);
+            });
+
     }
 };

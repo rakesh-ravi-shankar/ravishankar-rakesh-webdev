@@ -1,6 +1,6 @@
 <h1>Edit Image Element</h1>
 
-<form action="/api/upload"  method="post" enctype="multipart/form-data">
+<form action="/api/upload"  method="post" enctype="multipart/form-data">node
 
     <input  name="wgid" value="{{model.currentWidget._id}}"   style="display: none"/>
     <input  name="wid" value="{{model.wid}}"   style="display: none"/>
@@ -44,5 +44,6 @@
            placeholder="width">
 
     <button type="submit" class="btn btn-primary btn-block btn-lg">Upload Image</button>
+    <a class="btn btn-success btn-block btn-lg" href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{model.wgid}}/search">Search</a>
     <a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>
 </form>

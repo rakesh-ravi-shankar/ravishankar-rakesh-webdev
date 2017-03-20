@@ -52,3 +52,7 @@ a:hover {
     text-align: justify;
     text-justify: inter-word;
 }
+
+.img-tile {
+    width: 100%;
+}

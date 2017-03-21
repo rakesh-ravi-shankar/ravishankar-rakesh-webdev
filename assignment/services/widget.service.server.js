@@ -69,66 +69,85 @@ module.exports = function(app) {
         }
     ];
 
+    var widgetModel = require("../model/widget/widget.model.server");
+
     function findAllWidgetsForPage(req, res) {
         var pid = req.params.pid;
-        var widgetsForGivenPage = [];
-        for (var index in widgets) {
-            if (widgets[index].pageId === pid) {
-                widgetsForGivenPage.push(widgets[index]);
-            }
-        }
-        res.json(widgetsForGivenPage);
+        widgetModel
+            .findAllWidgetsForPage(pid)
+            .then(function(widgets) {
+                res.json(widgets);
+            }, function(err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function findWidgetById(req, res) {
         var wgid = req.params.wgid;
-        var widget = widgets.find(function(wg) {
-            return wg._id == wgid;
-        });
-        res.json(widget);
+        widgetModel
+            .findWidgetById(wgid)
+            .then(function(widget) {
+                res.json(widget);
+            }, function(err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function createWidget(req, res) {
         var newWidget = req.body;
-        widgets.push(newWidget);
-        res.sendStatus(200);
+        var pid = req.params.pid;
+        widgetModel
+            .createWidget(pid, newWidget)
+            .then(function() {
+                res.sendStatus(200);
+            }, function(err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function updateWidget(req, res) {
         var wgid = req.params.wgid;
         var newWidget = req.body;
-        for (var index in widgets) {
-            if (widgets[index]._id === wgid) {
-                if (newWidget.widgetType === "HEADER") {
-                    widgets[index].name = newWidget.name;
-                    widgets[index].text = newWidget.text;
-                    widgets[index].size = newWidget.size;
-                }
-                else if ((newWidget.widgetType === "IMAGE") || (newWidget.widgetType === "YOUTUBE")) {
-                    widgets[index].name = newWidget.name;
-                    widgets[index].text = newWidget.text;
-                    widgets[index].url = newWidget.url;
-                    widgets[index].width = newWidget.width;
-                }
-                else if (newWidget.widgetType === "HTML") {
-                    widgets[index].name = newWidget.name;
-                    widgets[index].text = newWidget.text;
-                }
+
+        // for (var index in widgets) {
+        //     if (widgets[index]._id === wgid) {
+        //         if (newWidget.widgetType === "HEADER") {
+        //             widgets[index].name = newWidget.name;
+        //             widgets[index].text = newWidget.text;
+        //             widgets[index].size = newWidget.size;
+        //         }
+        //         else if ((newWidget.widgetType === "IMAGE") || (newWidget.widgetType === "YOUTUBE")) {
+        //             widgets[index].name = newWidget.name;
+        //             widgets[index].text = newWidget.text;
+        //             widgets[index].url = newWidget.url;
+        //             widgets[index].width = newWidget.width;
+        //         }
+        //         else if (newWidget.widgetType === "HTML") {
+        //             widgets[index].name = newWidget.name;
+        //             widgets[index].text = newWidget.text;
+        //         }
+        //         res.sendStatus(200);
+        //         return;
+        //     }
+        // }
+        widgetModel
+            .updateWidget(wgid, newWidget)
+            .then(function() {
                 res.sendStatus(200);
-                return;
-            }
-        }
+            }, function(err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function deleteWidget(req, res) {
         var wgid = req.params.wgid;
-        for (var index in widgets) {
-            if (widgets[index]._id === wgid) {
-                widgets.splice(index, 1);
+        widgetModel
+            .deleteWidget(wgid)
+            .then(function() {
                 res.sendStatus(200);
-                return;
-            }
-        }
+            }, function(err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function sortWidget(req, res) {

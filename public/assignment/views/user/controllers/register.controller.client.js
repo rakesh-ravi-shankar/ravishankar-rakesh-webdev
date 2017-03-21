@@ -26,25 +26,31 @@
             UserService
                 .findUserByUsername(user.username)
                 .success(function(userFound){
+                    console.log(userFound);
                     vm.error = "Username already exists! Please select a new username.";
                     return;
+                })
+                .error(function(){
+
+                    if (user.password === user.verify_password) {
+                        delete user.verify_password;
+
+                        UserService
+                            .createUser(user)
+                            .success(function(createdUser){
+                                console.log(createdUser);
+                                $location.url("/user/" + createdUser._id);
+                            });
+
+                    }
+                    else {
+                        vm.error = "Password Mismatch!";
+                        return;
+                    }
+
                 });
 
-            if (user.password === user.verify_password) {
-                delete user.verify_password;
 
-                UserService
-                    .createUser(user)
-                    .success(function(createdUser){
-                        console.log(createdUser);
-                        $location.url("/user/" + createdUser._id);
-                    });
-
-            }
-            else {
-                vm.error = "Password Mismatch!";
-                return;
-            }
 
 
 

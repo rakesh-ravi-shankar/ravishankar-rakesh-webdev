@@ -1,4 +1,4 @@
-module.exports = function(app, userModel) {
+module.exports = function(app) {
 
     app.get("/api/user", findUser);
     app.get("/api/user/:uid", findUserById);
@@ -71,8 +71,12 @@ module.exports = function(app, userModel) {
         userModel
             .findUserByUsername(req.query.username)
             .then(function(user){
-                console.log(user);
-                res.json(user[0]);
+                if (!JSON.stringify(user) === '{}'){
+                    res.json(user[0]);
+                }
+                else{
+                    res.sendStatus(500)
+                }
             }, function(err) {
                 res.sendStatus(500).send(err)
             });

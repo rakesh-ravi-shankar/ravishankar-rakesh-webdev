@@ -15,6 +15,7 @@ var websiteSchema = mongoose.Schema({
 websiteSchema.post("remove", function(website) {
     var userModel = require("../user/user.model.server");
     var pageModel = require("../page/page.model.server");
+    var widgetModel = require("../widget/widget.model.server");
 
     userModel
         .findUserById(website._user)
@@ -24,6 +25,8 @@ websiteSchema.post("remove", function(website) {
             user.save();
         });
 
+
+    widgetModel.remove({_page: {$in: website.pages}}).exec();
     pageModel.remove({_id: {$in: website.pages}}).exec();
 });
 

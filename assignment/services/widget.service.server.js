@@ -133,27 +133,6 @@ module.exports = function(app) {
         var index1 = parseInt(req.query.initial);
         var index2 = parseInt(req.query.final);
 
-       //  var widgetsForGivenPage = [];
-       //  for (var index in widgets) {
-       //      if (widgets[index].pageId === pid) {
-       //          widgetsForGivenPage.push(index);
-       //      }
-       //  }
-       //
-       // for (var i = index1; i < index2; i++) {
-       //      var temp = widgets[widgetsForGivenPage[i]];
-       //      widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i+1]];
-       //      widgets[widgetsForGivenPage[i+1]] = temp;
-       //  }
-       //
-       //  for (var i = index1; i > index2; i--) {
-       //      var temp = widgets[widgetsForGivenPage[i]];
-       //      widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
-       //      widgets[widgetsForGivenPage[i-1]] = temp;
-       //  }
-       //
-       //  res.sendStatus(200);
-
         widgetModel
             .sortWidget(index1, index2, pid)
             .then(function() {

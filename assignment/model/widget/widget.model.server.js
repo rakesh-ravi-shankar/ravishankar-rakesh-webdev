@@ -21,36 +21,20 @@ var pageModel = require("../page/page.model.server");
 function findAllWidgetsForPage(pid) {
     var deffered = q.defer();
 
-    widgetModel
-        .find({_page:pid}, function(err, widgets) {
-                if(err) {
-                    deffered.reject(err);
-                }
-                else {
+    pageModel
+        .findById(pid, function(err, page) {
+            console.log(page.widgets);
+            widgetModel
+                .find({_id: {$in: page.widgets}}, function(err, widgets) {
+
+                    widgets.sort(function(a, b) {
+                        return page.widgets.indexOf(a._id) - page.widgets.indexOf(b._id);
+                    });
+
+                    console.log(widgets);
                     deffered.resolve(widgets);
-                }
+                });
         });
-
-    // pageModel
-    //     .findPageById(pid)
-    //     .then(function(page) {
-    //
-    //         var allWidgets = [];
-    //         page.widgets.forEach(function(wgid) {
-    //             findWidgetById(wgid)
-    //                 .then(function(widget) {
-    //                     console.log(widget);
-    //                     allWidgets.push(widget);
-    //                 });
-    //
-    //         }, function () {
-    //             console.log("RESOLVED");
-    //             deffered.resolve(allWidgets);
-    //         });
-    //
-    //
-    //     });
-
 
     return deffered.promise;
 }
@@ -77,7 +61,7 @@ function createWidget(pid, newWidget) {
     widgetModel
         .create(newWidget, function(err, createdWidget) {
             if (err) {
-                console.log("EROOR in create widget")
+                console.log("EROOR in create widget");
                 deffered.reject(err);
             }
             else {
@@ -148,7 +132,7 @@ function sortWidget(index1, index2, pid) {
             pageModel
                 .findPageById(pid)
                 .then(function (page) {
-                    console.log(page);
+                    // console.log(page);
 
                     for (var i = index1; i < index2; i++) {
                         var temp = page.widgets[i];
@@ -162,10 +146,18 @@ function sortWidget(index1, index2, pid) {
                         page.widgets[i - 1] = temp;
                     }
 
-                    page.save();
+                    pageModel
+                        .update({_id: pid}, {$set: {widgets: page.widgets}}, function(err, updatedPage) {
+                            // console.log("UPDATED");
+                            pageModel
+                                .findPageById(pid)
+                                .then(function (page) {
+                                   // console.log(page);
+                                });
+                            deffered.resolve();
+                        });
 
-                    console.log(page);
-                    deffered.resolve();
+
                 });
 
 

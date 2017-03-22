@@ -21,9 +21,9 @@
 
         function createWidget(widgetType) {
             newWidget = {};
-            newWidget._id = (new Date()).getTime().toString();
-            newWidget.widgetType = widgetType;
-            newWidget.pageId = vm.pid;
+            // newWidget._id = (new Date()).getTime().toString();
+            newWidget.type = widgetType;
+            // newWidget.pageId = vm.pid;
             switch (widgetType) {
                 case "HEADER":
                     newWidget.text = "Default Text";
@@ -45,8 +45,8 @@
 
             WidgetService
                 .createWidget(vm.pid, newWidget)
-                .success(function() {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + newWidget._id);
+                .success(function(createdWidget) {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + createdWidget._id);
                 });
 
         }

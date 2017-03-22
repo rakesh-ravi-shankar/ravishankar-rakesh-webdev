@@ -95,12 +95,17 @@ function updateUser(uid, updatedUser) {
 function deleteUser(uid) {
     var deffered = q.defer();
     userModel
-        .remove({_id:uid}, function(err) {
+        .findByIdAndRemove({_id:uid}, function(err, user) {
             if(err) {
                 deffered.abort();
             }
             else {
-                deffered.resolve();
+                user
+                    .remove()
+                    .then(function () {
+                        deffered.resolve();
+                    });
+
             }
         });
     return deffered.promise;

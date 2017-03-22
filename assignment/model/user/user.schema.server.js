@@ -14,4 +14,11 @@ var userSchema = mongoose.Schema({
     dateCreated: Date
 }, {collection: "user.collection"});
 
+
+userSchema.post("remove", function(user) {
+    var websiteModel = require("../website/website.model.server");
+
+    websiteModel.remove({_id: {$in: user.websites}}).exec();
+});
+
 module.exports = userSchema;

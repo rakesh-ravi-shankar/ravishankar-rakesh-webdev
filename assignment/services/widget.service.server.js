@@ -98,8 +98,8 @@ module.exports = function(app) {
         var pid = req.params.pid;
         widgetModel
             .createWidget(pid, newWidget)
-            .then(function() {
-                res.sendStatus(200);
+            .then(function(createdWidget) {
+                res.json(createdWidget);
             }, function(err) {
                 res.sendStatus(500).send(err);
             });
@@ -108,28 +108,6 @@ module.exports = function(app) {
     function updateWidget(req, res) {
         var wgid = req.params.wgid;
         var newWidget = req.body;
-
-        // for (var index in widgets) {
-        //     if (widgets[index]._id === wgid) {
-        //         if (newWidget.widgetType === "HEADER") {
-        //             widgets[index].name = newWidget.name;
-        //             widgets[index].text = newWidget.text;
-        //             widgets[index].size = newWidget.size;
-        //         }
-        //         else if ((newWidget.widgetType === "IMAGE") || (newWidget.widgetType === "YOUTUBE")) {
-        //             widgets[index].name = newWidget.name;
-        //             widgets[index].text = newWidget.text;
-        //             widgets[index].url = newWidget.url;
-        //             widgets[index].width = newWidget.width;
-        //         }
-        //         else if (newWidget.widgetType === "HTML") {
-        //             widgets[index].name = newWidget.name;
-        //             widgets[index].text = newWidget.text;
-        //         }
-        //         res.sendStatus(200);
-        //         return;
-        //     }
-        // }
         widgetModel
             .updateWidget(wgid, newWidget)
             .then(function() {
@@ -155,26 +133,34 @@ module.exports = function(app) {
         var index1 = parseInt(req.query.initial);
         var index2 = parseInt(req.query.final);
 
-        var widgetsForGivenPage = [];
-        for (var index in widgets) {
-            if (widgets[index].pageId === pid) {
-                widgetsForGivenPage.push(index);
-            }
-        }
+       //  var widgetsForGivenPage = [];
+       //  for (var index in widgets) {
+       //      if (widgets[index].pageId === pid) {
+       //          widgetsForGivenPage.push(index);
+       //      }
+       //  }
+       //
+       // for (var i = index1; i < index2; i++) {
+       //      var temp = widgets[widgetsForGivenPage[i]];
+       //      widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i+1]];
+       //      widgets[widgetsForGivenPage[i+1]] = temp;
+       //  }
+       //
+       //  for (var i = index1; i > index2; i--) {
+       //      var temp = widgets[widgetsForGivenPage[i]];
+       //      widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
+       //      widgets[widgetsForGivenPage[i-1]] = temp;
+       //  }
+       //
+       //  res.sendStatus(200);
 
-       for (var i = index1; i < index2; i++) {
-            var temp = widgets[widgetsForGivenPage[i]];
-            widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i+1]];
-            widgets[widgetsForGivenPage[i+1]] = temp;
-        }
-
-        for (var i = index1; i > index2; i--) {
-            var temp = widgets[widgetsForGivenPage[i]];
-            widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
-            widgets[widgetsForGivenPage[i-1]] = temp;
-        }
-
-        res.sendStatus(200);
+        widgetModel
+            .sortWidget(index1, index2, pid)
+            .then(function() {
+                res.sendStatus(200);
+            }, function(err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function uploadImage(req, res) {
@@ -188,16 +174,19 @@ module.exports = function(app) {
             var myFile = req.file;
             var destination = myFile.destination;
 
-            for (var i in widgets) {
-                if (widgets[i]._id === wgid) {
-                    widgets[i].width = width;
-                    widgets[i].url = req.protocol + '://' +req.get('host') + "/uploads/" + myFile.filename;
-                    pid = widgets[i].pageId;
-                    break;
-                }
-            }
+            widgetModel
+                .findWidgetById(wgid)
+                .then(function(widget) {
+                    widget.width = width;
+                    widget.url = req.protocol + '://' +req.get('host') + "/uploads/" + myFile.filename;
+                    pid = widget._page;
+                    widget.save();
+                    res.redirect("/assignment/#/user/" + uid + "/website/" + wid + "/page/" + pid + "/widget/"+ wgid);
+                }, function(err) {
+                    res.sendStatus(500).send(err);
+                });
         }
-        res.redirect("/assignment/#/user/" + uid + "/website/" + wid + "/page/" + pid + "/widget/"+ wgid);
+
 
     }
 };

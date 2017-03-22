@@ -16,6 +16,7 @@ module.exports = pageModel;
 
 
 var websiteModel = require("../website/website.model.server");
+var widgetModel = require("../widget/widget.model.server");
 
 
 function findAllPagesForWebsite(wid) {
@@ -87,31 +88,19 @@ function updatePage(pid, newPage) {
 
 function deletePage(pid) {
     var deffered = q.defer();
-    var wid;
-
-    findPageById(pid)
-        .then(function(page) {
-            wid = page._website;
-
-            pageModel
-                .remove({_id:pid}, function(err) {
-                    if(err) {
-                        deffered.reject(err);
+       pageModel
+           .findByIdAndRemove({_id:pid}, function(err, page) {
+               if(err) {
+                   deffered.reject(err);
+               }
+               else {
+                   page
+                       .remove()
+                       .then(function(){
+                           deffered.resolve();
+                       });
                     }
-                    else {
-                        websiteModel
-                            .findWebsiteById(wid)
-                            .then(function(website) {
-
-                                var page_index = website.pages.indexOf(pid);
-                                website.pages.splice(page_index, 1);
-                                website.save();
-                            });
-                        //delete widgets here
-                        deffered.resolve();
-                    }
-                })
-        });
+                });
 
     return deffered.promise;
 }

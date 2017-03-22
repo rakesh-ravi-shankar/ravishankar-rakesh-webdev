@@ -12,7 +12,6 @@ widgetModel.createWidget = createWidget;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
 widgetModel.sortWidget = sortWidget;
-widgetModel.uploadImage = uploadImage;
 
 module.exports = widgetModel;
 
@@ -21,7 +20,8 @@ var pageModel = require("../page/page.model.server");
 
 function findAllWidgetsForPage(pid) {
     var deffered = q.defer();
-    pageModel
+
+    widgetModel
         .find({_page:pid}, function(err, widgets) {
                 if(err) {
                     deffered.reject(err);
@@ -30,19 +30,41 @@ function findAllWidgetsForPage(pid) {
                     deffered.resolve(widgets);
                 }
         });
+
+    // pageModel
+    //     .findPageById(pid)
+    //     .then(function(page) {
+    //
+    //         var allWidgets = [];
+    //         page.widgets.forEach(function(wgid) {
+    //             findWidgetById(wgid)
+    //                 .then(function(widget) {
+    //                     console.log(widget);
+    //                     allWidgets.push(widget);
+    //                 });
+    //
+    //         }, function () {
+    //             console.log("RESOLVED");
+    //             deffered.resolve(allWidgets);
+    //         });
+    //
+    //
+    //     });
+
+
     return deffered.promise;
 }
 
 
 function findWidgetById(wgid) {
     var deffered = q.defer();
-    pageModel
+    widgetModel
         .findById(wgid, function(err, widget) {
             if(err) {
-                resolve.reject(err);
+                deffered.reject(err);
             }
             else{
-                resolve.resolve(widget);
+                deffered.resolve(widget);
             }
         });
     return deffered.promise;
@@ -52,9 +74,10 @@ function findWidgetById(wgid) {
 function createWidget(pid, newWidget) {
     var deffered = q.defer();
     newWidget._page = pid;
-    pageModel
+    widgetModel
         .create(newWidget, function(err, createdWidget) {
             if (err) {
+                console.log("EROOR in create widget")
                 deffered.reject(err);
             }
             else {
@@ -64,7 +87,7 @@ function createWidget(pid, newWidget) {
                         page.widgets.push(createdWidget._id);
                         page.save();
                     });
-                deffered.resolve();
+                deffered.resolve(createdWidget);
             }
         });
     return deffered.promise;
@@ -107,9 +130,9 @@ function deleteWidget(wgid) {
                                 var page_index = page.widgets.indexOf(wgid);
                                 page.widgets.splice(page_index, 1);
                                 page.save();
+                                deffered.resolve();
                             });
-                        //delete pages here
-                        deffered.resolve();
+
                     }
                 })
         });
@@ -118,11 +141,35 @@ function deleteWidget(wgid) {
 }
 
 
-function sortWidget() {
+function sortWidget(index1, index2, pid) {
+    var deffered = q.defer();
 
+
+            pageModel
+                .findPageById(pid)
+                .then(function (page) {
+                    console.log(page);
+
+                    for (var i = index1; i < index2; i++) {
+                        var temp = page.widgets[i];
+                        page.widgets[i] = page.widgets[i + 1];
+                        page.widgets[i + 1] = temp;
+                    }
+
+                    for (var i = index1; i > index2; i--) {
+                        var temp = page.widgets[i];
+                        page.widgets[i] = page.widgets[i - 1];
+                        page.widgets[i - 1] = temp;
+                    }
+
+                    page.save();
+
+                    console.log(page);
+                    deffered.resolve();
+                });
+
+
+    return deffered.promise;
 }
 
 
-function uploadImage() {
-
-}

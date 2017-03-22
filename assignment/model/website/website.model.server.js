@@ -87,31 +87,21 @@ function updateWebsite(wid, newWebsite) {
 
 function deleteWebsite(wid) {
     var deffered = q.defer();
-    var uid;
 
-    findWebsiteById(wid)
-        .then(function(website) {
-            uid = website._user;
-
-            websiteModel
-                .remove({_id:wid}, function(err) {
-                    if(err) {
-                        deffered.reject(err);
-                    }
-                    else {
-                        userModel
-                            .findUserById(uid)
-                            .then(function(user) {
-
-                                var website_index = user.websites.indexOf(wid);
-                                user.websites.splice(website_index, 1);
-                                user.save();
-                            });
-                        //delete pages here
+    websiteModel
+        .findByIdAndRemove({_id:wid}, function(err, website) {
+            if(err) {
+                deffered.reject(err);
+            }
+            else {
+                website
+                    .remove()
+                    .then(function() {
                         deffered.resolve();
-                    }
-                })
+                    });
+            }
         });
+
 
     return deffered.promise;
 }

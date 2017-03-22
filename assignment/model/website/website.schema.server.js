@@ -11,4 +11,21 @@ var websiteSchema = mongoose.Schema({
     dateCreated: Date
 }, {collection: "website.collection"});
 
+
+websiteSchema.post("remove", function(website) {
+    var userModel = require("../user/user.model.server");
+    var pageModel = require("../page/page.model.server");
+
+    userModel
+        .findUserById(website._user)
+        .then(function(user) {
+            var website_index = user.websites.indexOf(wid);
+            user.websites.splice(website_index, 1);
+            user.save();
+        });
+
+    pageModel.remove({_id: {$in: website.pages}}).exec();
+});
+
+
 module.exports = websiteSchema;

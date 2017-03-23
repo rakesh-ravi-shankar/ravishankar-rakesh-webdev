@@ -24,51 +24,6 @@ module.exports = function(app) {
     app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 
-    var widgets = [
-        {"_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "The Verge"},
-        {"_id": "123", "widgetType": "HEADER", "pageId": "432", "size": 2, "text": "The Verge"},
-        {"_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-        {
-            "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-            "url": "https://i.ytimg.com/vi/fFi4BhD_DUw/maxresdefault.jpg"
-        },
-        {
-            "_id": "456", "widgetType": "HTML", "pageId": "321",
-            "text": "<p>Proin sem eros, feugiat et aliquet quis, luctus non tortor. " +
-            "Nullam orci lorem, feugiat quis ante quis, volutpat viverra nisl. " +
-            "Sed eu nunc ornare justo tempus gravida. " +
-            "Proin ac urna nunc. Vivamus imperdiet luctus dui in commodo. " +
-            "Fusce suscipit nulla lectus, sit amet imperdiet risus faucibus nec. " +
-            "Maecenas blandit, massa vitae tincidunt efficitur, diam est suscipit felis, at feugiat ligula sapien non ex. " +
-            "Quisque rutrum fringilla accumsan. " +
-            "Etiam euismod eros a eros rutrum, et sagittis quam euismod. " +
-            "Donec maximus interdum sem, quis egestas ex ultricies ut. " +
-            "Cras consequat nisl sodales, scelerisque nibh eget, eleifend neque. " +
-            "Interdum et malesuada fames ac ante ipsum primis in faucibus. " +
-            "Suspendisse odio magna, auctor eu facilisis id, posuere eget mauris.</p>"
-        },
-        {"_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-        {
-            "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-            "url": "https://youtu.be/p6WkoK0zJJM"
-        },
-        {
-            "_id": "789", "widgetType": "HTML", "pageId": "321",
-            "text": "<p>Proin sem eros, feugiat et aliquet quis, luctus non tortor. " +
-            "Nullam orci lorem, feugiat quis ante quis, volutpat viverra nisl. " +
-            "Sed eu nunc ornare justo tempus gravida. " +
-            "Proin ac urna nunc. Vivamus imperdiet luctus dui in commodo. " +
-            "Fusce suscipit nulla lectus, sit amet imperdiet risus faucibus nec. " +
-            "Maecenas blandit, massa vitae tincidunt efficitur, diam est suscipit felis, at feugiat ligula sapien non ex. " +
-            "Quisque rutrum fringilla accumsan. " +
-            "Etiam euismod eros a eros rutrum, et sagittis quam euismod. " +
-            "Donec maximus interdum sem, quis egestas ex ultricies ut. " +
-            "Cras consequat nisl sodales, scelerisque nibh eget, eleifend neque. " +
-            "Interdum et malesuada fames ac ante ipsum primis in faucibus. " +
-            "Suspendisse odio magna, auctor eu facilisis id, posuere eget mauris.</p>"
-        }
-    ];
-
     var widgetModel = require("../model/widget/widget.model.server");
 
     function findAllWidgetsForPage(req, res) {

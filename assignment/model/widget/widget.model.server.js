@@ -66,7 +66,6 @@ function createWidget(pid, newWidget) {
     widgetModel
         .create(newWidget, function(err, createdWidget) {
             if (err) {
-                console.log("EROOR in create widget");
                 deffered.reject(err);
             }
             else {
@@ -137,7 +136,6 @@ function sortWidget(index1, index2, pid) {
             pageModel
                 .findPageById(pid)
                 .then(function (page) {
-                    // console.log(page);
 
                     for (var i = index1; i < index2; i++) {
                         var temp = page.widgets[i];
@@ -153,11 +151,9 @@ function sortWidget(index1, index2, pid) {
 
                     pageModel
                         .update({_id: pid}, {$set: {widgets: page.widgets}}, function(err, updatedPage) {
-                            // console.log("UPDATED");
                             pageModel
                                 .findPageById(pid)
                                 .then(function (page) {
-                                   // console.log(page);
                                 });
                             deffered.resolve();
                         });

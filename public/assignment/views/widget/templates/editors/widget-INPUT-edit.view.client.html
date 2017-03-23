@@ -1,0 +1,15 @@
+<h1>Edit Input Element</h1>
+
+<label for="text_input">Text</label>
+<input id="text_input" ng-model="model.currentWidget.text" class="form-control"/>
+
+<label for="rows_input">Rows</label>
+<input id="rows_input" ng-model="model.currentWidget.rows" class="form-control" type="number"/>
+
+<label for="placeholder_input">Placeholder</label>
+<input id="placeholder_input" ng-model="model.currentWidget.placeholder" class="form-control"/>
+
+<label for="formatted_input">Formatted</label>
+<input id="formatted_input" ng-model="model.currentWidget.formatted" type="checkbox"/>
+
+<a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>

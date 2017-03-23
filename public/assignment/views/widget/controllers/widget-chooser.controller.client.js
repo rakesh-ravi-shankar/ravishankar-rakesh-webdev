@@ -40,6 +40,11 @@
                 case "HTML":
                     newWidget.text = "<p>Default Text</p>";
                     break;
+                case "INPUT":
+                    newWidget.text = "Default Text";
+                    newWidget.rows = 1;
+                    newWidget.placeholder = "placeholder";
+                    break;
             }
 
 

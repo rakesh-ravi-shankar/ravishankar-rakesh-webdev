@@ -26,13 +26,18 @@ function findAllWidgetsForPage(pid) {
             console.log(page.widgets);
             widgetModel
                 .find({_id: {$in: page.widgets}}, function(err, widgets) {
+                    if(err) {
+                        deffered.reject(err);
+                    }
+                    else {
 
-                    widgets.sort(function(a, b) {
-                        return page.widgets.indexOf(a._id) - page.widgets.indexOf(b._id);
-                    });
+                        widgets.sort(function (a, b) {
+                            return page.widgets.indexOf(a._id) - page.widgets.indexOf(b._id);
+                        });
 
-                    console.log(widgets);
-                    deffered.resolve(widgets);
+                        console.log(widgets);
+                        deffered.resolve(widgets);
+                    }
                 });
         });
 

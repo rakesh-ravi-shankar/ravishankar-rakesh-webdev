@@ -43,8 +43,11 @@
                     <ng-include src="'views/widget/templates/widget-HTML.view.client.html'"></ng-include>
                 </div>
 
-                <div ng-switch-when="YOUTUBE" class="widget">
+                <div ng-switch-when="YOUTUBE" class="widget youtube-widget">
                     <ng-include src="'views/widget/templates/widget-YOUTUBE.view.client.html'"></ng-include>
+                </div>
+                <div ng-switch-when="INPUT" class="widget">
+                    <ng-include src="'views/widget/templates/widget-INPUT.view.client.html'"></ng-include>
                 </div>
             </div>
 

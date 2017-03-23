@@ -1,19 +1,10 @@
 <h1>Edit HTML Element</h1>
 
-<label for="name_html">Name</label>
-<input ng-model="model.currentWidget.name"
-       class="form-control"
-       id="name_html"
-       type="text"
-       placeholder="name">
-
-
-<label for="text_html">Text</label>
-<textarea ng-model="model.currentWidget.text"
-          class="form-control"
-          id="text_html"
-          type="text"
-          placeholder="text"
-          rows="3"></textarea>
+<div ng-model="model.currentWidget.text"
+     text-angular
+     ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+</div>
 
 <a class="btn btn-danger btn-block btn-lg" ng-click="model.deleteWidget()">Delete</a>

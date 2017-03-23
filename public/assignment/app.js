@@ -3,5 +3,5 @@
  */
 (function () {
     angular
-        .module("WebApp", ["ngRoute"]);
+        .module("WebApp", ["ngRoute", "textAngular"]);
 })();

@@ -23,7 +23,6 @@ function findAllWidgetsForPage(pid) {
 
     pageModel
         .findById(pid, function(err, page) {
-            console.log(page.widgets);
             widgetModel
                 .find({_id: {$in: page.widgets}}, function(err, widgets) {
                     if(err) {
@@ -35,7 +34,6 @@ function findAllWidgetsForPage(pid) {
                             return page.widgets.indexOf(a._id) - page.widgets.indexOf(b._id);
                         });
 
-                        console.log(widgets);
                         deffered.resolve(widgets);
                     }
                 });
@@ -120,7 +118,6 @@ function deleteWidget(wgid) {
                                 page.save();
                                 deffered.resolve();
                             });
-
                     }
                 })
         });
@@ -131,7 +128,6 @@ function deleteWidget(wgid) {
 
 function sortWidget(index1, index2, pid) {
     var deffered = q.defer();
-
 
             pageModel
                 .findPageById(pid)
@@ -151,14 +147,14 @@ function sortWidget(index1, index2, pid) {
 
                     pageModel
                         .update({_id: pid}, {$set: {widgets: page.widgets}}, function(err, updatedPage) {
-                            pageModel
-                                .findPageById(pid)
-                                .then(function (page) {
-                                });
-                            deffered.resolve();
+                            if(err) {
+                                deffered.reject();
+                            }
+                            else {
+                                deffered.resolve();
+                            }
+
                         });
-
-
                 });
 
 

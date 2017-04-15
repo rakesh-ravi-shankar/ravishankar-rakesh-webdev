@@ -3,6 +3,7 @@ h1,h4 {
 }
 body {
     background-color: #3B3B3B;
+    overflow-x: hidden;
 }
 
 #particles-js {
@@ -43,7 +44,7 @@ body {
 
 #all-cards {
     position: absolute;
-    top: 50%;
+    top: 45%;
     width: 100%;
 }
 

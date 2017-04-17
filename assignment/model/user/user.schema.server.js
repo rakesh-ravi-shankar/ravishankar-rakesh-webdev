@@ -31,3 +31,4 @@ userSchema.post("remove", function(user) {
 });
 
 module.exports = userSchema;
+
